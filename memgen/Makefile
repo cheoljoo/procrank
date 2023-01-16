@@ -1,6 +1,6 @@
 # https://makefiletutorial.com/
 # Thanks to Job Vranish (https://spin.atomicobject.com/2016/08/26/makefile-c-projects/)
-TARGET_EXEC := procrank
+TARGET_EXEC := memgen
 
 BUILD_DIR := ./build
 SRC_DIRS := ./
@@ -30,8 +30,7 @@ CPPFLAGS := $(INC_FLAGS) -MMD -MP
 $(BUILD_DIR)/$(TARGET_EXEC): $(OBJS)
 	$(CXX) $(OBJS) -o $@ $(LDFLAGS)
 run:
-	echo "sudo $(BUILD_DIR)/$(TARGET_EXEC) -r "echo {pid} ggg {pid} ttt"  -w 10 -s \"aaa.csv\""
-	sudo $(BUILD_DIR)/$(TARGET_EXEC) -r "echo {pid} ggg {pid} ttt"  -w 10 -s "aaa.csv"
+	build/memgen
 
 # Build step for C source
 $(BUILD_DIR)/%.c.o: %.c

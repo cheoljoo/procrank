@@ -39,15 +39,20 @@ Usage: ./procrank [ -W ] [ -v | -r | -p | -u | -s | -h ]
     - option p : check PSS
     - option c count : contiguous count when it increase continually  (+1 peak count)
     - option p peakcount : peaked count (if reached , it is memory leak for pid)
-    - option r count : repeated period seconds (sleep seconds)
 ```
-Usage: ./procrank [ -p | -u | -c # | -m # | -w # | -h ]
+Usage: ./build/procrank [ -p | -u | -d | -o | -h | -c # | -m # | -w # | -s filename | -r command ]
     -u  : Check by USS.(default)
     -p  : Check by PSS.
+    -d  : debug on (more message)
+    -o  : show original procrank msg
     -c  Count : contiguous count when it increase continually  (+1 peak count). default 2:
     -m  MaxPeakCount : peaked count (if reached , it is memory leak for pid). default :3
     -w  PeriodicalWaitingSeconds : wating seconds periodically. default :2
-    -h  : Display this help screen.
+    -s  filename : writing the memory history. it can be run when it has -s option.
+    -r  command : run this command when it has memory leak.
+                  {pid} will be replaced by pid of memory leak process.
+                  ex) -r "echo {pid}"
+    -h  : Display this help.
 ```
 
 # how to run

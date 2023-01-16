@@ -71,8 +71,8 @@ enum {
 
 // added by charles
 #include <map.h>
-#define PROCRANK 0          /* if you want to show original procrank results , set 1 */
-#define DEBUG 0             /* if you need more message , set 1 */
+static int PROCRANK = 0;          /* if you want to show original procrank results , set 1 */
+static int DEBUG = 0;             /* if you need more message , set 1 */
 static int checkWhat = CHECK_USS;
 static int checkContinuousCount = DEFAULT_CHECK_CONTINUOUS_COUNT;
 static int checkMaxPeakCount = DEFAULT_CHECK_MAX_PEAK_COUNT;
@@ -231,7 +231,7 @@ int main(int argc, char *argv[]) {
     ws = WS_OFF;
 
     int c;
-    while ((c = getopt (argc, argv, "hpuc:m:w:s:r:")) != -1){
+    while ((c = getopt (argc, argv, "hpudoc:m:w:s:r:")) != -1){
         switch (c)
         {
         case 'h':
@@ -243,6 +243,12 @@ int main(int argc, char *argv[]) {
             break;
         case 'u':
             checkWhat = CHECK_USS;
+            break;
+        case 'd':
+            DEBUG = 1;
+            break;
+        case 'o':
+            PROCRANK = 1;
             break;
         case 'c':
             checkContinuousCount = atoi(optarg);
@@ -584,15 +590,18 @@ int main(int argc, char *argv[]) {
         printf("\n\ncheckContinuousCount %d : checkMaxPeakCount %d\n",checkContinuousCount,checkMaxPeakCount);
         printf("wait %d seconds : wait count %d\n\n",checkWaitingSeconds,wait_count);
         sleep(checkWaitingSeconds);
+	wait_count++;
     }
 
     return 0;
 }
 
 static void usage(char *myname) {
-    fprintf(stderr, "Usage: %s [ -p | -u | -c # | -m # | -w # | -h ]\n", myname);
+    fprintf(stderr, "Usage: %s [ -p | -u | -d | -o | -h | -c # | -m # | -w # | -s filename | -r command ]\n", myname);
     fprintf(stderr, "    -u  : Check by USS.(default)\n");
     fprintf(stderr, "    -p  : Check by PSS.\n");
+    fprintf(stderr, "    -d  : debug on (more message)\n");
+    fprintf(stderr, "    -o  : show original procrank msg\n");
     fprintf(stderr, "    -c  Count : contiguous count when it increase continually  (+1 peak count). default %d:\n",DEFAULT_CHECK_CONTINUOUS_COUNT);
     fprintf(stderr, "    -m  MaxPeakCount : peaked count (if reached , it is memory leak for pid). default :%d\n",DEFAULT_CHECK_MAX_PEAK_COUNT);
     fprintf(stderr, "    -w  PeriodicalWaitingSeconds : wating seconds periodically. default :%d\n",DEFAULT_CHECK_WAITING_SECONDS);

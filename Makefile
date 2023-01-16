@@ -33,6 +33,10 @@ run:
 	echo "sudo $(BUILD_DIR)/$(TARGET_EXEC) -r "echo {pid} ggg {pid} ttt"  -w 10 -s \"aaa.csv\""
 	sudo $(BUILD_DIR)/$(TARGET_EXEC) -r "echo {pid} ggg {pid} ttt"  -w 10 -s "aaa.csv"
 
+procrank:
+	echo "sudo $(BUILD_DIR)/$(TARGET_EXEC) -o -r "echo {pid} ggg {pid} ttt"  -w 10 -s \"aaa.csv\""
+	sudo $(BUILD_DIR)/$(TARGET_EXEC) -o -r "echo {pid} ggg {pid} ttt"  -w 10 -s "aaa.csv"
+
 # Build step for C source
 $(BUILD_DIR)/%.c.o: %.c
 	mkdir -p $(dir $@)
